@@ -1,6 +1,6 @@
 const Hapi = require('hapi')
 const Boom = require('boom')
-const createOrder = require('./order')
+const {createOrder} = require('./order')
 
 function server () {
   const app = new Hapi.Server()
