@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "lab unit.js",
-    "start": "nodemon",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon",
+    "client": "cd client && npm start",
     "lab": "lab"
   },
   "keywords": [],
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "code": "^4.0.0",
+    "concurrently": "^3.4.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-node": "^5.0.0",
