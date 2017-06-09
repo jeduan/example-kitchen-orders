@@ -1,3 +1,4 @@
+const Joi = require('joi')
 const OrdersController = require('../controllers/orders')
 
 exports.register = function (server, options, next) {
@@ -12,6 +13,17 @@ exports.register = function (server, options, next) {
     method: 'GET',
     path: `/orders`,
     handler: ordersController.index
+  }, {
+    method: 'PUT',
+    path: '/orders/{id}/pickup',
+    config: {
+      handler: ordersController.pickup,
+      validate: {
+        params: {
+          id: Joi.string().regex(/\d{4,}/)
+        }
+      }
+    }
   }])
 
   next()

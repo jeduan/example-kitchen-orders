@@ -14,6 +14,7 @@ CREATE TABLE orders (
 );
 CREATE INDEX "orders_ix_courierId" ON "orders" ("courierId");
 CREATE INDEX "orders_ix_active" ON "orders" ("active");
+INSERT INTO couriers(name) VALUES ('Jim'), ('Bob');
 
 -- Down
 DROP INDEX orders_ix_courierId;

@@ -13,7 +13,7 @@ const lab = exports.lab = Lab.script()
 const {test, experiment, before, beforeEach} = lab
 const {expect} = Code
 
-experiment('Orders Model', () => {
+experiment('Models:Order', () => {
   let orders = null
   let db
 
@@ -33,31 +33,17 @@ experiment('Orders Model', () => {
     return db.run('DELETE FROM orders')
   })
 
-  test('create() creates an object', async () => {
-    const id = await orders.create({courierId: 1})
-    expect(id).to.be.a.number()
-  })
-
-  test('create() creates a valid object', async () => {
-    const id = await orders.create({courierId: 2})
-    const order = await orders.get(id)
-    const {error} = Joi.validate(order, schema)
-    expect(error).to.not.exist()
-  })
-
-  test('create() creates a valid object', async () => {
+  test('create() with full data creates a valid object', async () => {
     const eta = addMinutes(new Date(), 1)
 
-    const id = await orders.create({
+    const order = await orders.create({
       courierId: 1,
       name: 'Order',
       address: 'Address',
       eta
     })
 
-    const order = await orders.get(id)
-    const {error} = Joi.validate(order, schema)
-    expect(error).to.not.exist()
+    Joi.validate(order, schema)
 
     expect(order.name).to.equal('Order')
     expect(order.address).to.equal('Address')
@@ -66,9 +52,9 @@ experiment('Orders Model', () => {
     expect(order.pickedUp).to.equal(false)
   })
 
-  test('create() select a random courierId', async () => {
-    const id = await orders.create()
-    expect(id).to.be.a.number()
+  test('create() empty creates a valid object', async () => {
+    const order = await orders.create()
+    Joi.validate(order, schema)
   })
 
   test('all returns a list', async () => {
@@ -79,11 +65,12 @@ experiment('Orders Model', () => {
     expect(all).to.be.an.array()
     expect(all).to.have.length(5)
     expect(all[0].name).to.equal('Order 1')
+    Joi.validate(all, schema)
   })
 
   test('pickup() sets the value as pickedUp', async () => {
-    const id = await orders.create()
-    const before = await orders.get(id)
+    const before = await orders.create()
+    const {id} = before
 
     await orders.pickup(id)
     const after = await orders.get(id)

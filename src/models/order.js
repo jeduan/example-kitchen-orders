@@ -16,7 +16,8 @@ class Order extends BaseModel {
     return values.map(processRecord)
   }
 
-  async create (data = {}) {
+  async create (data) {
+    data = data || {}
     const values = {
       $name: data.name || defaults.name(),
       $address: data.address || defaults.address(),
@@ -29,7 +30,8 @@ class Order extends BaseModel {
     }
     const query = `INSERT INTO orders(name, address, eta, courierId) VALUES($name, $address, $eta, $courierId)`
     const run = await this.db.run(query, values)
-    return run.stmt.lastID
+    const id = run.stmt.lastID
+    return this.get(id)
   }
 
   async get ($id) {

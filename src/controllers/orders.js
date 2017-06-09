@@ -6,18 +6,18 @@ class OrdersController {
   }
 
   create (request, reply) {
-    const value = request.payload.order
-    return this.model.add(value)
+    return this.model.create(request.payload)
       .then(reply)
   }
 
   index (request, reply) {
-    return this.model.getAll()
+    return this.model.all()
       .then(reply)
   }
 
   pickup (request, reply) {
-    return this.model.pickup(request.params.id)
+    const id = Number(request.params.id)
+    return this.model.pickup(id)
       .then(reply)
   }
 }
