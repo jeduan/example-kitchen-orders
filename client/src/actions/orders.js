@@ -2,21 +2,26 @@ import request from 'request-promise-native'
 import {normalize} from 'normalizr'
 import {orderSchema} from '../schema'
 
-const {host, protocol} = window.location
-const localhost = `${protocol}//${host}`
+const getHostname = () => {
+  if (process.env.NODE_ENV === 'test') {
+    return 'http://localhost.test:3000'
+  }
+  const {host, protocol} = window.location
+  return `${protocol}//${host}`
+}
 
-const api = request.defaults({json: true, baseUrl: `${localhost}/orders`})
+const api = request.defaults({json: true, baseUrl: `${getHostname()}/orders`})
 
-export const requestCreate = (body) => api.post('', {body})
-export const requestGetAll = () => api.get('')
-export const requestPickup = (id) => api.put(`/${id}/pickup`)
+const requestCreate = (body) => api.post('', {body})
+const requestGetAll = () => api.get('')
+const requestPickup = (id) => api.put(`/${id}/pickup`)
 
-const makeRequest = (fn, type, schema) => data => dispatch => {
+const makeRequest = (fn, type, process) => data => dispatch => {
   dispatch({type: `${type}_REQUEST`})
-  fn(data)
+  return fn(data)
     .then((payload) => {
-      if (schema) {
-        payload = normalize(payload, schema)
+      if (process && typeof process === 'function') {
+        payload = process(payload, data)
       }
 
       dispatch({
@@ -25,7 +30,6 @@ const makeRequest = (fn, type, schema) => data => dispatch => {
       })
     })
     .catch((err) => {
-      console.error(err)
       dispatch({
         type: `${type}_FAIL`,
         error: true,
@@ -34,6 +38,10 @@ const makeRequest = (fn, type, schema) => data => dispatch => {
     })
 }
 
-export const create = makeRequest(requestCreate, 'ORDERS_CREATE', orderSchema)
-export const getAll = makeRequest(requestGetAll, 'ORDERS_GET_ALL', [orderSchema])
-export const pickup = makeRequest(requestPickup, 'ORDERS_PICKUP')
+const normalizeOrderList = (payload) => normalize(payload, [orderSchema])
+const normalizeOrder = (payload) => normalize(payload, orderSchema)
+const requestData = (_, data) => data
+
+export const getAll = makeRequest(requestGetAll, 'ORDERS_GET_ALL', normalizeOrderList)
+export const create = makeRequest(requestCreate, 'ORDERS_CREATE', normalizeOrder)
+export const pickup = makeRequest(requestPickup, 'ORDERS_PICKUP', requestData)
