@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "lab unit.js",
+    "test": "lab src/**/*.test.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon",
     "client": "cd client && npm start",
@@ -18,8 +18,10 @@
     "date-fns": "^1.28.5",
     "faker": "^4.1.0",
     "hapi": "^16.4.1",
+    "hoek": "^4.1.1",
     "joi": "^10.5.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "sqlite": "^2.8.0"
   },
   "devDependencies": {
     "code": "^4.0.0",

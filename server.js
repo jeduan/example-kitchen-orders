@@ -1,38 +1,30 @@
 const Hapi = require('hapi')
-const Boom = require('boom')
-const {createOrder} = require('./order')
+const createDatabase = require('./database')
 
-function server () {
-  const app = new Hapi.Server()
-  const orders = createOrder()
-  app.connection({
-    port: process.env.PORT || 3001
+async function createServer () {
+  const server = new Hapi.Server({debug: {request: ['info', 'error']}})
+  server.connection({
+    port: process.env.PORT || 3001,
+    host: 'localhost'
   })
-
-  app.route({
-    method: 'GET',
-    path: '/order',
-    handler: function (request, reply) {
-      const order = orders.next()
-      if (order.done) {
-        reply(Boom.serverUnavailable)
-        return
-      }
-      reply(order.value)
-    }
-  })
-
-  const oldStart = app.start
-
-  app.start = () => oldStart.call(app, (err) => {
-    if (err) throw err
-    console.log(`Listening at port ${app.info.uri}`)
-  })
-  return app
+  const database = await createDatabase()
+  const plugins = [{
+    register: require('./src/routes/orders'),
+    options: { database }
+  }]
+  await server.register(plugins)
+  return server
 }
 
-if (require.main === module) {
-  server().start()
+if (!module.parent) {
+  createServer()
+    .then(server => server.start()
+      .catch((err) => {
+        console.error(err)
+        process.exit(1)
+      })
+    )
+    .catch(err => console.error(err))
 }
 
-module.exports = server
+module.exports = createServer
