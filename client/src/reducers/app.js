@@ -6,11 +6,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'APP_INIT':
       return {
-        fetching: true,
-        ...state
+        ...state,
+        fetching: true
       }
     case 'APP_HELP':
       return {
+        ...state,
         fetching: false
       }
     default:
