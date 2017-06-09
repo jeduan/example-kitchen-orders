@@ -49,7 +49,7 @@ it('ORDERS_CREATE_SUCCESS stores new id', () => {
   const action = {
     type: 'ORDERS_CREATE_SUCCESS',
     payload: {
-      result: ['0001']
+      result: '0001'
     }
   }
   const nextState = ordersReducer({result: ['0002']}, action)

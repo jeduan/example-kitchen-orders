@@ -9,4 +9,4 @@ export default combineReducers({
   app
 })
 
-export const isFetching = state => state.app.isFetching
+export const isFetching = state => state.app.fetching

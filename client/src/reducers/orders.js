@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case 'ORDERS_CREATE_SUCCESS':
       return {
         ...state,
-        result: [...action.payload.result, ...state.result],
+        result: [action.payload.result, ...state.result],
         isLoading: false
       }
 

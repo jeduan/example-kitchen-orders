@@ -19,12 +19,12 @@ const startInterval = (rate) => (dispatch, getState) => {
 }
 
 function stopInterval () {
+  console.log('clearing interval')
   clearInterval(interval)
   interval = null
 }
 
 export const stopFetching = () => dispatch => {
-  console.log('clearing interval')
   stopInterval()
   dispatch(help())
 }
@@ -33,4 +33,5 @@ export const initialize = () => dispatch => {
   dispatch(init())
   dispatch(orders.getAll())
   dispatch(startInterval(rate))
+  setTimeout(stopFetching, 7000)
 }
