@@ -4,9 +4,11 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "date-fns": "^1.28.5",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "normalizr": "^3.2.3",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",

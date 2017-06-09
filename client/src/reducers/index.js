@@ -8,5 +8,3 @@ export default combineReducers({
   entities,
   app
 })
-
-export const isFetching = state => state.app.fetching
