@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import {initialize} from '../actions/app'
 
 class App extends Component {
+  componentDidMount () {
+    this.props.initialize()
+  }
+
   render () {
     return (
       <div className='App'>
@@ -12,4 +18,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect(null, {initialize})(App)
