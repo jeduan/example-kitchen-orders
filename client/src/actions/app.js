@@ -33,5 +33,5 @@ export const initialize = () => dispatch => {
   dispatch(init())
   dispatch(orders.getAll())
   dispatch(startInterval(rate))
-  setTimeout(stopFetching, 7000)
+  setTimeout(() => dispatch(stopFetching()), 7000)
 }

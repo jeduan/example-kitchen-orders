@@ -97,7 +97,8 @@ it('creates ORDERS_PICKUP_SUCCESS', () => {
     .reply(200)
 
   const expectedActions = [{
-    type: 'ORDERS_PICKUP_REQUEST'
+    type: 'ORDERS_PICKUP_REQUEST',
+    payload: '0001'
   }, {
     type: 'ORDERS_PICKUP_SUCCESS',
     payload: '0001'
