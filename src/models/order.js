@@ -12,7 +12,11 @@ const defaults = {
 
 class Order extends BaseModel {
   async all () {
-    const values = await this.db.all('SELECT * FROM orders WHERE active = 1')
+    const query = `SELECT o.id, o.name, o.address, o.eta, (1 - o.active) AS pickedUp, c.name AS courier
+    FROM orders o
+      LEFT JOIN couriers c ON o.courierId = c.id
+    WHERE active = 1`
+    const values = await this.db.all(query)
     return values.map(processRecord)
   }
 

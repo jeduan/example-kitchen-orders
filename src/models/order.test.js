@@ -23,6 +23,7 @@ experiment('Models:Order', () => {
 
     // seed
     const couriers = new Couriers(db)
+    await db.run(`DELETE FROM couriers`)
 
     for (let i of range(5)) {
       couriers.create({name: `Courier ${i + 1}`})
@@ -43,7 +44,8 @@ experiment('Models:Order', () => {
       eta
     })
 
-    Joi.validate(order, schema)
+    const {error} = Joi.validate(order, schema)
+    expect(error).to.not.exist()
 
     expect(order.name).to.equal('Order')
     expect(order.address).to.equal('Address')
@@ -54,7 +56,8 @@ experiment('Models:Order', () => {
 
   test('create() empty creates a valid object', async () => {
     const order = await orders.create()
-    Joi.validate(order, schema)
+    const {error} = Joi.validate(order, schema)
+    expect(error).to.not.exist()
   })
 
   test('all returns a list', async () => {
@@ -65,7 +68,10 @@ experiment('Models:Order', () => {
     expect(all).to.be.an.array()
     expect(all).to.have.length(5)
     expect(all[0].name).to.equal('Order 1')
-    Joi.validate(all, schema)
+    for (let order of all) {
+      const {error} = Joi.validate(order, schema)
+      expect(error).to.not.exist()
+    }
   })
 
   test('pickup() sets the value as pickedUp', async () => {

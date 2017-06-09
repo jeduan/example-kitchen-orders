@@ -6,7 +6,8 @@
   "scripts": {
     "test": "lab src/**/*.test.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon",
+    "server:dev": "nodemon",
+    "server": "node server.js",
     "client": "cd client && npm start",
     "lab": "lab"
   },
