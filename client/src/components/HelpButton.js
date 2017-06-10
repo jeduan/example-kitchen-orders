@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Button from './Button'
 
-const HelpButton = ({onHelpClick}) => {
+const HelpButton = ({onHelpClick, children, ...props}) => {
   return (
-    <Button danger onClick={onHelpClick}>
-      Help
+    <Button danger onClick={onHelpClick} {...props}>
+      {children}
     </Button>
   )
 }

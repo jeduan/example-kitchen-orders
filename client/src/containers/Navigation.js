@@ -4,6 +4,7 @@ import { css } from 'glamor'
 import HelpButton from '../components/HelpButton'
 import Button from '../components/Button'
 import { startFetching, stopFetching } from '../actions/app'
+import { isFetching } from '../selectors'
 
 const style = css({
   maxWidth: 800,
@@ -17,13 +18,17 @@ const style = css({
   }
 })
 
-const Navigation = ({startFetching, stopFetching}) => (
+const Navigation = ({isFetching, startFetching, stopFetching}) => (
   <div {...style} >
-    <Button onClick={startFetching} >Start</Button>
-    <HelpButton onHelpClick={stopFetching} />
+    <Button disabled={isFetching} onClick={startFetching} >Start</Button>
+    <HelpButton disabled={!isFetching} onHelpClick={stopFetching} >Help</HelpButton>
   </div>
 )
 
-export default connect(null, {
-  startFetching, stopFetching
-})(Navigation)
+export default connect(
+  (state) => ({
+    isFetching: isFetching(state)
+  }), {
+    startFetching, stopFetching
+  }
+)(Navigation)

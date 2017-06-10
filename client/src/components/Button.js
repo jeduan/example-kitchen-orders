@@ -9,7 +9,6 @@ const button = css(
     overflow: 'visible',
     font: 'inherit',
     color: '#222',
-    cursor: 'pointer',
     display: 'inline-block',
     textTransform: 'uppercase',
     boxSizing: 'border-box',
@@ -21,12 +20,17 @@ const button = css(
     textDecoration: 'none',
     transition: '.1s ease-in-out',
     transitionProperty: 'color, background-color, border-color',
+    '&:not(:disabled)': {
+      cursor: 'pointer'
+    },
     '&:hover': {
-      color: '#222',
-      borderColor: '#b2b2b2'
+      color: '#222'
     },
     '&:focus': {
       outline: 0
+    },
+    ':disabled': {
+      opacity: 0.4
     }
   }
 )
