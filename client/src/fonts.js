@@ -9,7 +9,7 @@ css.global('body', {
 
 css.global('html', {
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-  fontSize: 15,
+  fontSize: 16,
   fontWeight: 'normal',
   lineHeight: 1.5
 })
