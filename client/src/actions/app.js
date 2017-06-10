@@ -4,7 +4,7 @@ const init = () => ({type: 'APP_INIT'})
 const help = () => ({type: 'APP_HELP'})
 
 let interval
-export const startFetching = (rate = 15000) => (dispatch, getState) => {
+export const startFetching = ({rate = 15000} = {}) => (dispatch) => {
   if (interval) {
     return
   }
