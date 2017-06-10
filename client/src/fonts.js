@@ -14,6 +14,9 @@ css.global('html', {
   lineHeight: 1.5
 })
 
-css.global('h2, h3, h4', {
-  margin: '0.67em 0'
+css.global('h2, h3, h4, h5, h6', {
+  margin: '0 0 20px',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  fontWeight: 300,
+  color: '#222'
 })

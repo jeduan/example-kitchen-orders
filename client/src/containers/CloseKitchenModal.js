@@ -13,11 +13,21 @@ css.global('.ReactModal__Body--open', {
 
 const customStyle = {
   overlay: {
-    zIndex: 10
+    zIndex: 10,
+    background: 'rgba(0, 0, 0, 0.6)'
   },
   content: {
+    position: 'relative',
+    top: 'auto',
+    bottom: 'auto',
+    left: 'auto',
+    right: 'auto',
     border: 'none',
-    borderRadius: 0
+    borderRadius: 0,
+    margin: '50px auto',
+    width: 600,
+    maxHeight: 400,
+    padding: 40
   }
 }
 
@@ -32,9 +42,8 @@ class CloseKitchenModal extends Component {
           onCancel={this.props.closeModal}
           onConfirm={this.props.closeKitchen}
           confirmText='Close Kitchen'
-        >
-          <h3>Are you sure you want to close the kitchen?</h3>
-        </Dialog>
+          title='Are you sure you want to close the kitchen?'
+         />
       </Modal>
     )
   }
