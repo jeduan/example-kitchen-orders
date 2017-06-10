@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Button from './Button';
 
 const HelpButton = ({onHelpClick}) => {
   return (
-    <button className='help' onClick={onHelpClick}>
-      Stop
-    </button>
+    <Button danger onClick={onHelpClick}>
+      Help
+    </Button>
   )
 }
 

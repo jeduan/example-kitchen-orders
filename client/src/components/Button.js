@@ -25,24 +25,37 @@ const button = css(
     '&:hover': {
       color: '#222',
       borderColor: '#b2b2b2'
+    },
+    '&:focus': {
+      outline: 0
     }
-  },
-  $('&.primary', {
-    backgroundColor: '#1e87f0',
-    color: '#fff',
-    border: '1px solid transparent',
-    '&:hover': {
-      backgroundColor: '#0f7ae5'
-    }
-  })
+  }
 )
 
-const Button = ({children, onClick, primary, glamor}) => {
-  const classNames = classnames({
-    'primary': primary
-  })
+const primaryMod = css({
+  backgroundColor: '#1e87f0',
+  color: '#fff',
+  border: '1px solid transparent',
+  '&:hover': {
+    backgroundColor: '#0f7ae5'
+  }
+})
+
+const dangerMod = css({
+  backgroundColor: '#f0506e',
+  color: '#fff',
+  border: '1px solid transparent'
+})
+
+const Button = ({children, onClick, primary, danger, glamor}) => {
+  let modifiers = {}
+  if (primary) {
+    modifiers = primaryMod
+  } else if (danger) {
+    modifiers = dangerMod
+  }
   return (
-    <button onClick={onClick} {...button} {...glamor} className={classNames}>{children}</button>
+    <button onClick={onClick} {...button} {...modifiers} {...glamor}>{children}</button>
   )
 }
 
