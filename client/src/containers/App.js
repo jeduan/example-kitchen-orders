@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { css } from 'glamor'
 
 import Orders from './Orders'
 import Navigation from './Navigation'
 import {initialize} from '../actions/app'
+
+const container = css({
+  padding: '0 15px',
+  margin: '0 auto',
+  maxWidth: 1380
+})
 
 class App extends Component {
   componentDidMount () {
@@ -12,7 +19,7 @@ class App extends Component {
 
   render () {
     return (
-      <div className='App'>
+      <div {...container}>
         <Navigation />
         <Orders />
       </div>

@@ -27,5 +27,4 @@ export const stopFetching = () => dispatch => {
 export const initialize = () => dispatch => {
   dispatch(init())
   dispatch(orders.getAll())
-  dispatch(startFetching())
 }
