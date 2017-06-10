@@ -3,6 +3,7 @@ import map from 'lodash/fp/map'
 import sortBy from 'lodash/fp/sortBy'
 
 export const isFetching = state => state.app.fetching
+export const isModalOpen = state => state.modal.isOpen
 
 export const allOrders = state => {
   const process = flow(

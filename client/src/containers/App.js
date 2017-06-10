@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { css } from 'glamor'
+import CloseKitchenModal from './CloseKitchenModal'
 
 import Orders from './Orders'
 import Navigation from './Navigation'
@@ -22,6 +23,7 @@ class App extends Component {
       <div {...container}>
         <Navigation />
         <Orders />
+        <CloseKitchenModal />
       </div>
     )
   }

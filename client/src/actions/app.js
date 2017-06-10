@@ -1,4 +1,5 @@
 import * as orders from './orders'
+import {closeModal} from './modal'
 
 const init = () => ({type: 'APP_INIT'})
 const start = () => ({type: 'APP_START_FETCHING'})
@@ -22,6 +23,11 @@ export const stopFetching = () => dispatch => {
   clearInterval(interval)
   interval = null
   dispatch(stop())
+}
+
+export const closeKitchen = () => dispatch => {
+  dispatch(stopFetching())
+  dispatch(closeModal())
 }
 
 export const initialize = () => dispatch => {

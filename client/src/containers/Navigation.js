@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { css } from 'glamor'
 import HelpButton from '../components/HelpButton'
 import Button from '../components/Button'
-import { startFetching, stopFetching } from '../actions/app'
+import { startFetching } from '../actions/app'
+import { openModal } from '../actions/modal'
 import { isFetching } from '../selectors'
 
 const style = css({
@@ -18,10 +19,10 @@ const style = css({
   }
 })
 
-const Navigation = ({isFetching, startFetching, stopFetching}) => (
-  <div {...style} >
+const Navigation = ({isFetching, startFetching, openModal}) => (
+  <div {...style}>
     <Button disabled={isFetching} onClick={startFetching} >Start</Button>
-    <HelpButton disabled={!isFetching} onHelpClick={stopFetching} >Help</HelpButton>
+    <HelpButton disabled={!isFetching} onHelpClick={openModal} >Help</HelpButton>
   </div>
 )
 
@@ -29,6 +30,6 @@ export default connect(
   (state) => ({
     isFetching: isFetching(state)
   }), {
-    startFetching, stopFetching
+    startFetching, openModal
   }
 )(Navigation)
