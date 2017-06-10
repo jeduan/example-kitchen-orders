@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { css } from 'glamor'
 import HelpButton from '../components/HelpButton'
-import Button from '../components/Button';
+import Button from '../components/Button'
 import { startFetching, stopFetching } from '../actions/app'
 
 const style = css({

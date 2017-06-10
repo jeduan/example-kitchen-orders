@@ -35,15 +35,15 @@ const action = css({
   zIndex: 1
 })
 
-const OrderCard = ({order, onPickup, glamor}) => (
-  <div {...card} {...glamor}>
+const OrderCard = ({order, onPickup, ...props}) => (
+  <div {...card} {...props}>
     <h4>Order #{order.id}</h4>
     <h3><TimeDistance date={order.eta} /></h3>
     <p>
       <b>Courier: {order.courier}</b><br />
       {order.name}<br />
       {order.address}<br />
-      <Button glamor={action} primary
+      <Button primary {...action}
         onClick={onPickup}
       >Pick up</Button>
     </p>

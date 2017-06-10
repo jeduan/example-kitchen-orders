@@ -1,6 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
-import { css, select as $ } from 'glamor'
+import { css } from 'glamor'
 
 const button = css(
   {
@@ -37,17 +36,22 @@ const primaryMod = css({
   color: '#fff',
   border: '1px solid transparent',
   '&:hover': {
-    backgroundColor: '#0f7ae5'
+    backgroundColor: '#0f7ae5',
+    color: '#fff'
   }
 })
 
 const dangerMod = css({
   backgroundColor: '#f0506e',
   color: '#fff',
-  border: '1px solid transparent'
+  border: '1px solid transparent',
+  '&:hover': {
+    backgroundColor: '#ee395b',
+    color: '#fff'
+  }
 })
 
-const Button = ({children, onClick, primary, danger, glamor}) => {
+const Button = ({children, onClick, primary, danger, ...props}) => {
   let modifiers = {}
   if (primary) {
     modifiers = primaryMod
@@ -55,7 +59,7 @@ const Button = ({children, onClick, primary, danger, glamor}) => {
     modifiers = dangerMod
   }
   return (
-    <button onClick={onClick} {...button} {...modifiers} {...glamor}>{children}</button>
+    <button onClick={onClick} {...button} {...modifiers} {...props}>{children}</button>
   )
 }
 

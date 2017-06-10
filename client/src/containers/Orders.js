@@ -48,7 +48,7 @@ const Orders = ({orders, pickup}) => (
         <OrderCard key={order.id}
           order={order}
           onPickup={() => pickup(order.id)}
-          glamor={animations}
+          {...animations}
         />
       ))}
     </CSSTransitionGroup>
