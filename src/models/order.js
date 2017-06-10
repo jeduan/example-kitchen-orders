@@ -15,8 +15,8 @@ class Order extends BaseModel {
     const query = `SELECT o.id, o.name, o.address, o.eta, (1 - o.active) AS pickedUp, c.name AS courier
     FROM orders o
       LEFT JOIN couriers c ON o.courierId = c.id
-    WHERE active = 1
-    SORT BY o.eta ASC`
+    WHERE active = 1 AND o.eta > (strftime('%s', 'now') * 1000)
+    ORDER BY o.eta`
     const values = await this.db.all(query)
     return values.map(processRecord)
   }

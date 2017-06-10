@@ -67,7 +67,6 @@ experiment('Models:Order', () => {
     const all = await orders.all()
     expect(all).to.be.an.array()
     expect(all).to.have.length(5)
-    expect(all[0].name).to.equal('Order 1')
     for (let order of all) {
       const {error} = Joi.validate(order, schema)
       expect(error).to.not.exist()

@@ -21,8 +21,8 @@ class Courier extends BaseModel {
 
   async getRandomId () {
     const query = `SELECT id FROM couriers;`
-    const ids = await this.db.get(query)
-    return sample(ids)
+    const ids = await this.db.all(query)
+    return sample(ids).id
   }
 }
 
