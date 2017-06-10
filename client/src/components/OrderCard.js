@@ -1,7 +1,7 @@
 import React from 'react'
-import fromNow from 'date-fns/distance_in_words_to_now'
 import { css, select as $ } from 'glamor'
 import Button from './Button'
+import TimeDistance from './TimeDistance'
 
 const card = css(
   {
@@ -38,7 +38,7 @@ const action = css({
 const OrderCard = ({order, onPickup, glamor}) => (
   <div {...card} {...glamor}>
     <h4>Order #{order.id}</h4>
-    <h3>{fromNow(order.eta)}</h3>
+    <h3><TimeDistance date={order.eta} /></h3>
     <p>
       <b>Courier: {order.courier}</b><br />
       {order.name}<br />

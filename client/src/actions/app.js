@@ -1,14 +1,15 @@
 import * as orders from './orders'
 
 const init = () => ({type: 'APP_INIT'})
-const help = () => ({type: 'APP_HELP'})
+const start = () => ({type: 'APP_START_FETCHING'})
+const stop = () => ({type: 'APP_STOP_FETCHING'})
 
 let interval
 export const startFetching = ({rate = 15000} = {}) => (dispatch) => {
   if (interval) {
     return
   }
-  console.log('starting interval')
+  dispatch(start())
   interval = setInterval(() => {
     dispatch(orders.create())
   }, rate)
@@ -18,10 +19,9 @@ export const stopFetching = () => dispatch => {
   if (!interval) {
     return
   }
-  console.log('clearing interval')
   clearInterval(interval)
   interval = null
-  dispatch(help())
+  dispatch(stop())
 }
 
 export const initialize = () => dispatch => {

@@ -5,7 +5,9 @@ import { createLogger } from 'redux-logger'
 
 const middleware = [
   thunk,
-  process.env.NODE_ENV !== 'production' && createLogger()
+  process.env.NODE_ENV !== 'production' && createLogger({
+    collapsed: true
+  })
 ].filter(m => !!m)
 
 let composeEnhancers = compose

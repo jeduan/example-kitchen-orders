@@ -4,12 +4,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'APP_INIT':
+    case 'APP_START_FETCHING':
       return {
         ...state,
         fetching: true
       }
-    case 'APP_HELP':
+    case 'APP_STOP_FETCHING':
       return {
         ...state,
         fetching: false

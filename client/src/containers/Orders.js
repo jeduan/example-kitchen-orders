@@ -42,7 +42,7 @@ const Orders = ({orders, pickup}) => (
         leaveActive: 'leave-active'
       }}
       transitionEnterTimeout={300}
-      transitioLeaveTimeout={300}
+      transitionLeaveTimeout={300}
     >
       {orders.map(order => (
         <OrderCard key={order.id}
