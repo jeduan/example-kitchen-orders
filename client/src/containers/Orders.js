@@ -44,6 +44,9 @@ const Orders = ({orders, pickup}) => (
       transitionEnterTimeout={300}
       transitionLeaveTimeout={300}
     >
+      {orders.length === 0 && (
+        <h3>No orders yet</h3>
+      )}
       {orders.map(order => (
         <OrderCard key={order.id}
           order={order}

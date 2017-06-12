@@ -1,12 +1,13 @@
 const sqlite = require('sqlite')
 
-function createDatabase () {
+async function createDatabase () {
   const url = (process.env.NODE_ENV === 'test')
     ? ':memory:'
     : './data/database.sqlite'
 
-  return sqlite.open(url)
-    .then(() => sqlite.migrate({force: 'last'}))
+  const db = await sqlite.open(url)
+  await sqlite.migrate()
+  return db
 }
 
 module.exports = createDatabase

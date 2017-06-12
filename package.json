@@ -4,14 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "lab src/**/*.test.js",
+    "test": "npm run test:server",
+    "test:server": "lab src/**/*.test.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server:dev": "nodemon",
     "server": "node server.js",
     "server:prod": "NODE_ENV=production node server.js",
-    "build": "cd client && npm run build && cd .. && npm run server:prod",
+    "build": "cd client && npm run build",
     "client": "cd client && npm start",
-    "lab": "lab"
+    "now-start": "npm run server:prod"
   },
   "keywords": [],
   "author": "Jeduan Cornejo <jeduan@gmail.com>",
