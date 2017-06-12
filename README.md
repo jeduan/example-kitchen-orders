@@ -8,9 +8,6 @@ Clone this repo and `npm install` both in the root and `client/` directories
 
 ```bash
 npm install
-cd client
-npm install
-cd ..
 npm start
 ```
 
@@ -18,8 +15,7 @@ npm start
 
 ```
 npm test
-cd client
-npm test
+npm test:client
 ```
 
 ### Running in production mode

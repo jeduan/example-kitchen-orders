@@ -11,9 +11,8 @@
     "server": "node server",
     "client": "cd client && npm start",
     "postinstall": "cd client && npm install",
-    "server:prod": "NODE_ENV=production node server.js",
-    "build": "cd client && npm install && npm run build",
-    "heroku-postbuild": "npm run build",
+    "server:prod": "NODE_ENV=production node server",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "now-start": "npm run server:prod"
   },
   "engines": {
