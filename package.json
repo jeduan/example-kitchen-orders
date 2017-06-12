@@ -10,9 +10,12 @@
     "server:dev": "nodemon",
     "server": "node server.js",
     "server:prod": "NODE_ENV=production node server.js",
-    "build": "cd client && npm install --production && npm run build",
+    "build": "cd client && npm install && npm run build",
     "client": "cd client && npm start",
     "now-start": "npm run server:prod"
+  },
+  "engines": {
+    "node": ">= 8.1.0"
   },
   "keywords": [],
   "author": "Jeduan Cornejo <jeduan@gmail.com>",
