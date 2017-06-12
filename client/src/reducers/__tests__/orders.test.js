@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import ordersReducer from './orders'
+import ordersReducer from '../orders'
 
 it('ORDERS_*_REQUEST sets isLoading: true', () => {
   const action = {type: 'ORDERS_A_REQUEST'}
@@ -70,4 +70,11 @@ it('ORDERS_PICKUP_SUCCESS removes the id', () => {
   const nextState = ordersReducer(state, action)
   expect(nextState.isLoading).toBe(false)
   expect(nextState.result).toEqual(['0002'])
+})
+
+it('ignores other actions', () => {
+  const action = {type: 'FOO'}
+  const state = {result: []}
+  const nextState = ordersReducer(state, action)
+  expect(nextState).toBe(state)
 })

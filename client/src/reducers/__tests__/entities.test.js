@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import entitiesReducer from './entities'
+import entitiesReducer from '../entities'
 
 it('should store entities', () => {
   const action = {
@@ -38,4 +38,11 @@ it('should append new entities', () => {
   expect(nextState).toHaveProperty('foo.id', 'foo')
   expect(nextState).toHaveProperty('bar')
   expect(nextState).toHaveProperty('bar.id', 'bar')
+})
+
+it('ignores other actions', () => {
+  const action = {type: 'FOO'}
+  const state = {orders: {}}
+  const nextState = entitiesReducer(state, action)
+  expect(nextState).toBe(state)
 })

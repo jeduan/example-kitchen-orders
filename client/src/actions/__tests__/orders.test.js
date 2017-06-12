@@ -4,9 +4,9 @@ import nock from 'nock'
 import createMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import * as actions from './orders'
+import * as actions from '../orders'
 import { normalize } from 'normalizr'
-import {orderSchema} from '../schema'
+import {orderSchema} from '../../schema'
 
 const middlewares = [thunk]
 const mockStore = createMockStore(middlewares)

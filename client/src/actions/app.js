@@ -1,11 +1,11 @@
 import * as orders from './orders'
 import {closeModal} from './modal'
 
-const init = () => ({type: 'APP_INIT'})
-const start = () => ({type: 'APP_START_FETCHING'})
-const stop = () => ({type: 'APP_STOP_FETCHING'})
+export const init = () => ({type: 'APP_INIT'})
+export const start = () => ({type: 'APP_START_FETCHING'})
+export const stop = () => ({type: 'APP_STOP_FETCHING'})
 
-let interval
+export let interval
 export const startFetching = ({rate = 15000} = {}) => (dispatch) => {
   if (interval) {
     return
@@ -20,8 +20,7 @@ export const stopFetching = () => dispatch => {
   if (!interval) {
     return
   }
-  clearInterval(interval)
-  interval = null
+  clear()
   dispatch(stop())
 }
 
@@ -34,4 +33,12 @@ export const initialize = () => dispatch => {
   dispatch(init())
   dispatch(startFetching())
   dispatch(orders.getAll())
+}
+
+export const clear = () => {
+  if (!interval) {
+    return
+  }
+  clearInterval(interval)
+  interval = null
 }
