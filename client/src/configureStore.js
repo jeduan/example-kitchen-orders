@@ -3,16 +3,19 @@ import rootReducer from './reducers'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
+const isDev = process.env.NODE_ENV === 'development'
+const isNotProd = process.env.NODE_ENV !== 'production'
+
 const middleware = [
   thunk,
-  process.env.NODE_ENV !== 'production' && createLogger({
+  isNotProd && createLogger({
     collapsed: true
   })
 ].filter(m => !!m)
 
 let composeEnhancers = compose
 
-if (process.env.NODE_ENV === 'development') {
+if (isDev) {
   if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
     })
