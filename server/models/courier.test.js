@@ -6,7 +6,7 @@ const lab = exports.lab = Lab.script()
 const {experiment, test, before, beforeEach} = lab
 const {expect} = Code
 
-const createDb = require('../../database')
+const createDb = require('../database')
 const Couriers = require('./courier')
 const range = require('lodash/range')
 const map = require('lodash/map')

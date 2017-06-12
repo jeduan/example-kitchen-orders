@@ -2,13 +2,14 @@
   "name": "@jeduan/kitchen-orders",
   "version": "0.1.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "npm run test:server",
-    "test:server": "lab src/**/*.test.js",
+    "test": "lab server/**/*.test.js",
+    "test:client": "cd client && npm test",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server:dev": "nodemon",
-    "server": "node server.js",
+    "server": "node server",
+    "postinstall": "cd client && npm install",
     "server:prod": "NODE_ENV=production node server.js",
     "build": "cd client && npm install && npm run build",
     "client": "cd client && npm start",
@@ -17,6 +18,10 @@
   "engines": {
     "node": ">= 8.1.0"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "keywords": [],
   "author": "Jeduan Cornejo <jeduan@gmail.com>",
   "license": "MIT",

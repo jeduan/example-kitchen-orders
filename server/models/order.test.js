@@ -4,7 +4,7 @@ const Code = require('code')
 const Orders = require('./order')
 const Couriers = require('./courier')
 const schema = require('../schema/order')
-const createDatabase = require('../../database')
+const createDatabase = require('../database')
 const range = require('lodash/range')
 const addMinutes = require('date-fns/add_minutes')
 

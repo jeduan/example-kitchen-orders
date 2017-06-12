@@ -18,7 +18,7 @@ async function createServer () {
   const database = await createDatabase()
   const plugins = [
     {
-      register: require('./src/routes/orders'),
+      register: require('./routes/orders'),
       options: { database }
     },
     Inert

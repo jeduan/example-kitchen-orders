@@ -7,7 +7,7 @@ const lab = exports.lab = Lab.script()
 const {experiment, test} = lab
 const {expect} = Code
 
-const createDb = require('../../database')
+const createDb = require('../database')
 
 experiment('Base Model', () => {
   test('should not work without a db', (done) => {
