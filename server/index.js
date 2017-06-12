@@ -11,10 +11,10 @@ async function createServer () {
       }
     }
   const server = new Hapi.Server(serverConfig)
-  server.connection({
-    port: process.env.PORT || 3001,
-    host: 'localhost'
-  })
+  const connection = process.env.NODE_ENV === 'production'
+    ? {port: process.env.PORT}
+    : {port: 3001, host: 'localhost'}
+  server.connection(connection)
   const database = await createDatabase()
   const plugins = [
     {
