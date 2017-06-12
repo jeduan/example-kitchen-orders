@@ -19,11 +19,11 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "request": "^2.81.0",
-    "request-promise-native": "^1.0.4"
+    "request-promise-native": "^1.0.4",
+    "react-scripts": "1.0.7"
   },
   "devDependencies": {
     "nock": "^9.0.13",
-    "react-scripts": "1.0.7",
     "redux-mock-store": "^1.2.3"
   },
   "scripts": {
