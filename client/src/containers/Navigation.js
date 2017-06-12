@@ -21,8 +21,11 @@ const style = css({
 
 const Navigation = ({isFetching, startFetching, openModal}) => (
   <div {...style}>
-    <Button disabled={isFetching} onClick={startFetching} >Start</Button>
-    <HelpButton disabled={!isFetching} onHelpClick={openModal} >Help</HelpButton>
+    {isFetching ? (
+      <HelpButton onClick={openModal} >Help</HelpButton>
+    ) : (
+      <Button onClick={startFetching} >Reopen</Button>
+    )}
   </div>
 )
 

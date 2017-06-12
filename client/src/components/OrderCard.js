@@ -1,5 +1,5 @@
 import React from 'react'
-import { css, select as $ } from 'glamor'
+import { css } from 'glamor'
 import Button from './Button'
 import TimeDistance from './TimeDistance'
 
@@ -14,18 +14,19 @@ const card = css(
     margin: '0 auto 30px',
     maxWidth: 400
   },
-  $('& p', {
-    margin: '0 0 10px'
-  }),
-  $('& h3', {
-    color: '#222',
-    fontSize: 24,
-    lineHeight: 1.4,
-    margin: '0 0 20px'
-  }),
-  $('& h4', {
-    margin: '0 0 10px'
-  })
+  {
+    '& p': {
+      margin: '0 0 10px'
+    },
+    '& h3': {
+      color: '#222',
+      fontSize: 24,
+      lineHeight: 1.4
+    },
+    '& h4, & h5': {
+      margin: '0 0 10px'
+    }
+  }
 )
 
 const action = css({
@@ -39,11 +40,11 @@ const OrderCard = ({order, onPickup, ...props}) => (
   <div {...card} {...props}>
     <h4>Order #{order.id}</h4>
     <h3><TimeDistance date={order.eta} /></h3>
+    <h5>Courier: {order.courier}</h5>
     <p>
-      <b>Courier: {order.courier}</b><br />
       {order.name}<br />
       {order.address}<br />
-      <Button primary {...action}
+      <Button {...action}
         onClick={onPickup}
       >Pick up</Button>
     </p>

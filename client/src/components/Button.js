@@ -24,7 +24,8 @@ const button = css(
       cursor: 'pointer'
     },
     '&:hover': {
-      color: '#222'
+      color: '#222',
+      borderColor: '#b2b2b2'
     },
     '&:focus': {
       outline: 0
@@ -41,7 +42,8 @@ const primaryMod = css({
   border: '1px solid transparent',
   '&:hover': {
     backgroundColor: '#0f7ae5',
-    color: '#fff'
+    color: '#fff',
+    borderColor: 'transparent'
   }
 })
 
@@ -51,7 +53,8 @@ const dangerMod = css({
   border: '1px solid transparent',
   '&:hover': {
     backgroundColor: '#ee395b',
-    color: '#fff'
+    color: '#fff',
+    borderColor: 'transparent'
   }
 })
 

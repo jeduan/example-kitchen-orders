@@ -32,5 +32,6 @@ export const closeKitchen = () => dispatch => {
 
 export const initialize = () => dispatch => {
   dispatch(init())
+  dispatch(startFetching())
   dispatch(orders.getAll())
 }
