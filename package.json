@@ -9,10 +9,11 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server:dev": "nodemon",
     "server": "node server",
+    "client": "cd client && npm start",
     "postinstall": "cd client && npm install",
     "server:prod": "NODE_ENV=production node server.js",
     "build": "cd client && npm install && npm run build",
-    "client": "cd client && npm start",
+    "heroku-postbuild": "npm run build",
     "now-start": "npm run server:prod"
   },
   "engines": {
