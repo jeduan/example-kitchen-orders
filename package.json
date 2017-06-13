@@ -12,7 +12,8 @@
     "client": "cd client && npm start",
     "postinstall": "cd client && npm install",
     "server:prod": "NODE_ENV=production node server",
-    "now-start": "npm run server:prod"
+    "build": "cd client && npm run build",
+    "postbuild": "npm run server:prod"
   },
   "engines": {
     "node": ">= 8.1.0"
