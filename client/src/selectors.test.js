@@ -18,7 +18,12 @@ it('should get all orders', () => {
   }
 
   const result = selectors.allOrders(state)
-  expect(result).toEqual([{id: '0001'}])
+  expect(result).toEqual([
+    {
+      key: '0001',
+      data: {id: '0001'}
+    }
+  ])
 })
 
 it('should get orders sorted by ETA', () => {
@@ -42,9 +47,6 @@ it('should get orders sorted by ETA', () => {
   }
 
   const result = selectors.allOrders(state)
-  expect(result).toEqual([{
-    id: '0002', eta: addMinutes(now, 1)
-  }, {
-    id: '0001', eta: addMinutes(now, 2)
-  }])
+  const keys = result.map(item => item.key)
+  expect(keys).toEqual(['0002', '0001'])
 })
