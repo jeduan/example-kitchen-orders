@@ -6,12 +6,9 @@ import TimeDistance from './TimeDistance'
 const card = css(
   {
     boxSizing: 'border-box',
-    position: 'relative',
     backgroundColor: 'white',
-    color: '#666',
     boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-    padding: 30,
-    margin: '0 auto 30px',
+    margin: '0 auto',
     maxWidth: 400
   },
   {
@@ -29,6 +26,12 @@ const card = css(
   }
 )
 
+const container = css({
+  position: 'relative',
+  padding: 30,
+  color: '#666'
+})
+
 const action = css({
   position: 'absolute',
   top: 30,
@@ -36,18 +39,20 @@ const action = css({
   zIndex: 1
 })
 
-const OrderCard = ({order, onPickup, ...props}) => (
-  <div {...card} {...props}>
-    <h4>Order #{order.id}</h4>
-    <h3><TimeDistance date={order.eta} /></h3>
-    <h5>Courier: {order.courier}</h5>
-    <p>
-      {order.name}<br />
-      {order.address}<br />
-      <Button {...action}
-        onClick={onPickup}
-      >Pick up</Button>
-    </p>
+const OrderCard = ({order, onPickup, style}) => (
+  <div {...card} style={style}>
+    <div {...container}>
+      <h4>Order #{order.id}</h4>
+      <h3><TimeDistance date={order.eta} /></h3>
+      <h5>Courier: {order.courier}</h5>
+      <p>
+        {order.name}<br />
+        {order.address}<br />
+        <Button {...action}
+          onClick={onPickup}
+        >Pick up</Button>
+      </p>
+    </div>
   </div>
 )
 

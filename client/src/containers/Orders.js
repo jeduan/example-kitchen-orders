@@ -1,66 +1,96 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { CSSTransitionGroup } from 'react-transition-group'
-import { css } from 'glamor'
+import { TransitionMotion, spring, presets } from 'react-motion'
+import map from 'lodash/fp/map'
 
-import { allOrders } from '../selectors'
+import { allOrders, isLoadingOrders } from '../selectors'
 import { pickup } from '../actions/orders'
 import OrderCard from '../components/OrderCard'
 
-const animations = css({
-  '&.enter': {
-    opacity: 0,
-    transform: `translateX(-250px)`
-  },
-  '&.enter-active': {
-    opacity: 1,
-    transform: 'none',
-    transitionProperty: 'transform, opacity',
-    transitionDuration: '300ms',
-    transitionTimingFunction: 'cubic-bezier(0.175, 0.665, 0.320, 1), linear'
-  },
-  '&.leave': {
-    opacity: 1,
-    transform: 'none'
-  },
-  '&.leave.leave-active': {
-    opacity: 0,
-    transform: 'translateX(250px)',
-    transitionProperty: 'transform, opacity',
-    transitionDuration: '300ms',
-    transitionTimingFunction: 'cubic-bezier(0.175, 0.665, 0.320, 1), linear'
+const addDefaultStyle = (order) => ({
+  ...order,
+  style: { height: 0, opacity: 1, marginBottom: 0 }
+})
+
+const addFinalStyle = (order) => ({
+  ...order,
+  style: {
+    height: spring(234, presets.gentle),
+    opacity: spring(1, presets.gentle),
+    marginBottom: spring(30, presets.gentle)
   }
 })
 
-const Orders = ({orders, pickup}) => (
-  <div>
-    <CSSTransitionGroup
-      transitionName={{
-        enter: 'enter',
-        leave: 'leave',
-        enterActive: 'enter-active',
-        leaveActive: 'leave-active'
-      }}
-      transitionEnterTimeout={300}
-      transitionLeaveTimeout={300}
-    >
-      {orders.length === 0 && (
+class Orders extends Component {
+  getDefaultStyles () {
+    const defaultStyles = map(addDefaultStyle, this.props.orders)
+    console.log('DEFAULT STYLES')
+    return defaultStyles
+  }
+
+  getStyles () {
+    console.log('FINAL STYLES')
+    return map(addFinalStyle, this.props.orders)
+  }
+
+  handleLeave = (leavingItem) => {
+    console.log('LEAVING', leavingItem)
+    return {
+      height: spring(0, presets.gentle),
+      opacity: spring(0, presets.gentle),
+      marginBottom: spring(0, presets.gentle)
+    }
+  }
+
+  handleEnter = () => ({
+    height: 0,
+    opacity: 1,
+    marginBottom: 30
+  })
+
+  render () {
+    if (this.props.isLoading) {
+      return (
+        <h3>Loading</h3>
+      )
+    }
+
+    const {orders, pickup} = this.props
+
+    if (orders.length === 0) {
+      return (
         <h3>No orders yet</h3>
-      )}
-      {orders.map(order => (
-        <OrderCard key={order.id}
-          order={order}
-          onPickup={() => pickup(order.id)}
-          {...animations}
-        />
-      ))}
-    </CSSTransitionGroup>
-  </div>
-)
+      )
+    }
+
+    return (
+      <TransitionMotion
+        defaultStyles={this.getDefaultStyles()}
+        styles={this.getStyles()}
+        willLeave={this.handleLeave}
+        willEnter={this.handleEnter}
+      >
+        { styles => (
+          <div>
+            { styles.map((style) => (
+              <OrderCard key={style.key}
+                order={style.data}
+                onPickup={() => pickup(style.data.id)}
+                style={style.style}
+              />
+            )) }
+          </div>
+        )}
+      </TransitionMotion>
+    )
+  }
+}
+
 
 export default connect(
   (state) => ({
-    orders: allOrders(state)
+    orders: allOrders(state),
+    isLoading: isLoadingOrders(state)
   }),
   {
     pickup

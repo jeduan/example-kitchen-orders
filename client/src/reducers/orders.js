@@ -1,24 +1,32 @@
 
 const initialState = {
   result: [],
-  isLoading: false
+  isLoading: false,
+  isLoadingOrders: false
 }
 
 export default (state = initialState, action) => {
-  if (/^ORDERS_.*_REQUEST$/.test(action.type)) {
-    return {
-      ...state,
-      isLoading: true
-    }
-  }
-
   switch (action.type) {
     case 'ORDERS_GET_ALL_SUCCESS':
       return {
         ...state,
         result: action.payload.result,
-        isLoading: false
+        isLoading: false,
+        isLoadingOrders: false
       }
+
+    case 'ORDERS_GET_ALL_FAIL':
+      return {
+        ...state,
+        isLoadingOrders: false
+      }
+
+    case 'ORDERS_GET_ALL_REQUEST': {
+      return {
+        ...state,
+        isLoadingOrders: true
+      }
+    }
 
     case 'ORDERS_CREATE_SUCCESS':
       return {
@@ -35,6 +43,12 @@ export default (state = initialState, action) => {
       }
 
     default:
+      if (/^ORDERS_.*_REQUEST$/.test(action.type)) {
+        return {
+          ...state,
+          isLoading: true
+        }
+      }
       if (/^ORDERS_.*_(SUCCESS|FAIL)$/.test(action.type)) {
         return {
           ...state,
