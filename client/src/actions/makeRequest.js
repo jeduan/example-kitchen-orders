@@ -1,23 +1,33 @@
-const makeRequest = (fn, type, process) => data => dispatch => {
-  dispatch({type: `${type}_REQUEST`, payload: data})
-  return fn(data)
-    .then((payload) => {
-      if (process && typeof process === 'function') {
-        payload = process(payload, data)
-      }
+import { StatusCodeError, TransformError, RequestError } from 'request-promise-native/errors'
 
-      dispatch({
-        type: `${type}_SUCCESS`,
-        payload
-      })
+const makeRequest = (fn, type, process) => data => async (dispatch) => {
+  dispatch({type: `${type}_REQUEST`, payload: data})
+  let payload
+
+  try {
+    payload = await fn(data)
+  } catch (err) {
+    if (!(err instanceof StatusCodeError ||
+      err instanceof TransformError ||
+      err instanceof RequestError)) {
+      throw err
+    }
+
+    dispatch({
+      type: `${type}_FAIL`,
+      error: true,
+      payload: err
     })
-    .catch((err) => {
-      dispatch({
-        type: `${type}_FAIL`,
-        error: true,
-        payload: err
-      })
-    })
+    return
+  }
+
+  if (process && typeof process === 'function') {
+    payload = process(payload, data)
+  }
+  dispatch({
+    type: `${type}_SUCCESS`,
+    payload
+  })
 }
 
 export const getHostname = () => {
